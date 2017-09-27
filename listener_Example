@@ -1,0 +1,159 @@
+if (session.message.contains("!")) {//명령어 후 입력
+                        String in_str = "";
+                        try {
+                            in_str = session.message.split("!")[1];
+                            Log.i("asd",  in_str);
+                            //급식들..
+                            if (in_str.contains("급식")) {
+                                if(in_str.equals("급식"))
+                                    new school_meal().getTodayLunch();
+                                else if ((in_str.split(" ")[0].equals("오늘") && in_str.split(" ")[1].equals("급식"))||in_str.equals("오늘급식"))
+                                    new school_meal().getTodayLunch();
+                                else if ((in_str.split(" ")[0].equals("내일") && in_str.split(" ")[1].equals("급식"))||in_str.equals("내일급식"))
+                                    new school_meal().getTomorrowLunch();
+                                else if (((in_str.split(" ")[0].equals("모든")||in_str.split(" ")[0].equals("전체")) && in_str.split(" ")[1].equals("급식"))||in_str.equals("모든급식")||in_str.equals("전체급식"))
+                                    new school_meal().getAllLunch();
+                                else if (in_str.contains("1") || in_str.contains("2") || in_str.contains("3") || in_str.contains("4") || in_str.contains("5") || in_str.contains("6") || in_str.contains("7") || in_str.contains("8") || in_str.contains("9") || in_str.contains("0"))
+                                    if(!in_str.contains("일")&&in_str.contains("월"))
+                                        new school_meal().getAllLunchByMonth(Integer.parseInt(in_str.split(" ")[0].replaceAll("[^0-9]", "")));
+                                    else {
+                                        try {
+                                            new school_meal().getTodayLunchGlobal(Integer.parseInt(in_str.split("월")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("월")[1].split("일")[0].replaceAll("[^0-9]", "")));
+                                        } catch (Exception e) {
+                                            try {
+                                                new school_meal().getTodayLunchGlobal(Integer.parseInt(in_str.split("/")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("/")[1].split(" ")[0].replaceAll("[^0-9]", "")));
+                                            } catch (Exception e2) {
+                                                try {
+                                                    new school_meal().getTodayLunchGlobal(Integer.parseInt(in_str.split("\\.")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("\\.")[1].split(" ")[0].replaceAll("[^0-9]", "")));
+                                                } catch (Exception e3) {
+                                                    new school_meal().getTodayLunchByDay(Integer.parseInt(in_str.replaceAll("[^0-9]", "")));
+                                                }
+                                            }
+                                        }
+                                    }
+                                else
+                                    send("명령어를 잘못 입력하셨거나 없는 명령어입니다.");
+                            }
+                            else if (in_str.contains("석식")) {
+                                if(in_str.equals("석식"))
+                                    new school_meal().getTodayDinner();
+                                else if ((in_str.split(" ")[0].equals("오늘") && in_str.split(" ")[1].equals("석식"))||in_str.equals("오늘석식"))
+                                    new school_meal().getTodayDinner();
+                                else if ((in_str.split(" ")[0].equals("내일") && in_str.split(" ")[1].equals("석식"))||in_str.equals("내일석식"))
+                                    new school_meal().getTomorrowDinner();
+                                else if (((in_str.split(" ")[0].equals("모든")||in_str.split(" ")[0].equals("전체")) && in_str.split(" ")[1].equals("석식"))||in_str.equals("모든석식")||in_str.equals("전체석식"))
+                                    new school_meal().getAllDinner();
+                                else if (in_str.contains("1") || in_str.contains("2") || in_str.contains("3") || in_str.contains("4") || in_str.contains("5") || in_str.contains("6") || in_str.contains("7") || in_str.contains("8") || in_str.contains("9") || in_str.contains("0"))
+                                    if(!in_str.contains("일")&&in_str.contains("월"))
+                                        new school_meal().getAllDinnerByMonth(Integer.parseInt(in_str.split(" ")[0].replaceAll("[^0-9]", "")));
+                                    else {
+                                        try {
+                                            new school_meal().getTodayDinnerGlobal(Integer.parseInt(in_str.split("월")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("월")[1].split("일")[0].replaceAll("[^0-9]", "")));
+                                        } catch (Exception e) {
+                                            try {
+                                                new school_meal().getTodayDinnerGlobal(Integer.parseInt(in_str.split("/")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("/")[1].split(" ")[0].replaceAll("[^0-9]", "")));
+                                            } catch (Exception e2) {
+                                                try {
+                                                    new school_meal().getTodayDinnerGlobal(Integer.parseInt(in_str.split("\\.")[0].replaceAll("[^0-9]", "")), Integer.parseInt(in_str.split("\\.")[1].split(" ")[0].replaceAll("[^0-9]", "")));
+                                                } catch (Exception e3) {
+                                                    new school_meal().getTodayDinnerByDay(Integer.parseInt(in_str.replaceAll("[^0-9]", "")));
+                                                }
+                                            }
+                                        }
+                                    }
+                                else
+                                    send("명령어를 잘못 입력하셨거나 없는 명령어입니다.");
+                            }
+                            //끝말잇기 소스
+                            else if (in_str.contains("끝말잇기")){
+                                try {
+                                    if (in_str.equals("끝말잇기")||in_str.equals("끝말잇기 도움말")||in_str.equals("끝말잇기도움")){
+                                        send("!끝말잇기 (이어지는 말)\n명령어로 진행합니다\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                    }
+                                    else if((session.message.split(" ")[0].equals("non@meP_김도현")||session.sender.equals("non@meP_김도현"))&&in_str.split(" ")[1].equals("초기화")){
+                                        editor.putString(session.room,in_str.split(" ")[2]);
+                                        editor.commit();
+                                        send("끝말잇기 : 초기화되었습니다.\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                    }
+                                    else {
+                                        now_kkutu = pref.getString(session.room, "아이돌마스터");
+                                        String last;
+                                        char cr = now_kkutu.charAt(now_kkutu.length()-1);
+                                        last = new Character(cr).toString();
+                                        if(in_str.split(" ")[1].length()<=1){
+                                            send("끝말잇기 : 한글자는 불가능.\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                        }
+                                        else if(!Pattern.matches("^[가-힣]*$",in_str.split(" ")[1])){
+                                            send("끝말잇기 : 한글만 가능합니다.\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                        }
+                                        else if(in_str.split(" ")[1].startsWith(last)){
+                                            editor.putString(session.room,in_str.split(" ")[1]);
+                                            editor.commit();
+                                            send("끝말잇기 : 입력완료.\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                        }
+                                        else {
+                                            send("끝말잇기 : 잘못 입력하셨습니다.\n현재 단어 : "+pref.getString(session.room, "아이돌마스터"));
+                                        }
+                                    }
+                                }
+                                catch (Exception e) {
+                                    send("끝말잇기 : 명령어가 다릅니다.\n현재 단어 : " + pref.getString(session.room, "아이돌마스터"));
+                                }
+                            }
+                            //도움말
+                            else if (in_str.equals("help") || in_str.equals("도움") || in_str.equals("도움말"))
+                                send("도움말 아직 없음 ㅋ!");
+                            //개발자
+                            else if (in_str.equals("개발자"))
+                                send("갓갓 2기 부장이자 개발자이신 김도현을 입에 올리면 안된다...");
+                            else if (in_str.equals("코드")||in_str.equals("오픈소스")||in_str.equals("깃허브"))
+                                send("https://github.com/Blgada12/ernotion_ChatBot");
+                            //자연어 처리형 명령어
+                            //승준선배
+                            else if (in_str.contains("승준"))
+                                send("여자를 만나고 싶어하지만 아니라고 구라치는 정통 최고 인싸");
+                            //권달준
+                            else if (in_str.contains("달준"))
+                                send("https://www.youtube.com/channel/UCYcz1AOO2ufGJ8Ti61lLmCg\n세계최강 스트리머 권!달!준!!!!");
+                            //고~~동
+                            else if (in_str.contains("고동")||in_str.contains("고등어"))
+                                send("https://www.facebook.com/KodeungeoIsDelicious\n섹시한 고동현의 사진들(하트)");
+                            //!뒤에 아무것도 없으면 무반응
+                            else if (in_str.equals("")){}
+                            //이외의 명령어
+                            else
+                                send("잘못 입력하거나 없는 명령어입니다.");
+                        }catch (Exception e){
+                            //속도 향상을 위한 예외처리
+                        }
+                    }
+                    //특정 문자열이 포함되면 대답
+                    else {
+                        //non@meP_김도현 닉네임에 반응
+                        if((session.message.split(" ")[0].equals("non@meP_김도현")||session.sender.equals("non@meP_김도현")))
+                            //닉네임이 맞을떄
+                            if (session.message.contains("봇")&&session.message.contains("나와"))
+                                send("예 형님");
+                        else
+                            //닉네임이 아닐때
+                            if (session.message.contains("봇")&&session.message.contains("나와"))
+                                send("내 형님은 한명뿐이다!");
+                        //이모션이 포함된 말을 함
+                        if (session.message.contains("이모션"))
+                            send("이모션 갓갓갓갓 동아리!");
+                        //기모띠,기모찌 라는 말을 포함함
+                        if (session.message.contains("기모띠") || session.message.contains("기모찌"))
+                            send("앙 기모뤼~");
+                        //시공,히오,히어로즈가 포함됨
+                        if (session.message.contains("시공")||session.message.contains("히오")||session.message.contains("히어로즈"))
+                            send("♚♚히어로즈 오브 더 스☆톰♚♚가입시$$전원 카드팩☜☜뒷면100%증정※ ♜월드오브 워크래프트♜펫 무료증정￥ 특정조건 §§디아블로3§§★공허의유산★초상화획득기회@@ 즉시이동 http://kr.battle.net/heroes/ko/ ♚♚히어로즈 오브 더 스☆톰♚♚가입시$$전원 카드팩☜☜뒷면100%증정※ ♜월드오브 워크래프트♜펫 무료증정￥ 특정조건 §§디아블로3§§★공허의유산★초상화획득기회@@ 즉시이동http://kr.battle.net/heroes/ko/\n");
+                        //부장이 포함됨
+                        if (session.message.contains("부장"))
+                            send("히-익 오따끄-!");
+                        //찬카가 포함됨
+                        if (session.message.contains("찬카"))
+                            send("LOOOOOOOOORDCHANKAISNOTACCEPTABLE");
+                        //아이마스,젠카이노가 포함됨
+                        if (session.message.contains("아이돌마스터")||session.message.contains("아이마스")||session.message.contains("젠카이노"))
+                            send("IDOLM@STER!!!!");
+                    }
