@@ -6,7 +6,7 @@
 프로젝트 제작 환경은 안드로이드 스튜디오 3.0 입니다.
 롤리팝 이상에서 구동 확인 됩니다.
 
-## 예제 채팅 처리
+## 예제 채팅 처리 (코드정리가 안됩니다... 안스 내의 코드 정리 키를 사용해주세요)
 
 package com.ernotion.ngdb.noname_bot;
 
@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class Listener extends NotificationListenerService {
-    static Context context;
+    static Context context;
     static Session session = new Session();
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
